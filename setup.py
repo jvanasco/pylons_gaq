@@ -14,7 +14,7 @@ requires = [
     ]
 
 setup(name="pylons_gaq",
-      version="0.0.1",
+      version="0.0.2",
       description="Lightweight Google Analytics support for pylons",
       long_description=README,
       classifiers=[

@@ -1,3 +1,87 @@
-pylons_gaq gives lightweight support for Google Analytics under pylons
+pyramid_gaq gives lightweight support for Google Analytics under pyramid
 
 it creates and manages a _gaq namespace under request.tmpl_context, which can be updated in handlers and templates, and printed out -- in the correct order -- via a helper function
+
+if you're just using _trackPageview, this package is likely overkill 
+
+but if you're using any of this functionality, then its for you:
+- custom variables for performance analytics 
+- event tracking for backend interaction / operations 
+- ecommerce tracking 
+- rolling up multiple domains into 1 reporting suite
+
+This package lets you set GA code wherever needed, and renders everything in the 'correct' order.
+
+Every command has extensive docstrings, which also include, credit, and link to the relevant sections of the official GoogleAnalytics API docs.
+
+
+# Supported Concepts & Commands
+
+* Core
+** Choice of using a single , queued, "push" style command - or repeated ga.js API calls
+** _setAccount
+* Multiple Domain Tracking
+** _setDomainName
+** _setAllowLinker
+* Custom Variables
+* _setCustomVar
+* eCommerce
+** _addTrans
+** _addItem
+** _trackTrans
+* Event Tracking
+* _trackEvent
+
+# Pylons and Pyramid
+
+if you're using pylons, there is also a pylons_gaq distribution that does the exact same thing.
+	https://github.com/jvanasco/pylons_gaq
+
+if you're using pyramid, there is also a pyramid_gaq distribution that does the exact same thing.
+	https://github.com/jvanasco/pyramid_gaq
+
+
+# QuickStart
+
+## import this into your helpers
+
+Dropping it into your helpers namespace makes it easier to use in templates like mako.
+
+lib/helpers.py
+
+    from pyramid_gaq import *
+    
+
+## configure your BaseController to call gaq_setup on __init__
+
+This example is from my "pylons style hander".
+
+There are only two vars to submit:
+
+1. Your Google Analytics Account ID
+2. Whether or not your want to use the "Single Push" method, or a bunch of separate events.
+
+handlers/base.py
+
+	class Handler(object):
+	    def __init__(self, request):
+        self.request = request
+        h.gaq_setup(request,'GA_ACCOUNT_ID',single_push=False)
+
+
+## When you want to set a custom variable , or anything similar...
+
+	h.gaq_setCustomVar(1,'TemplateVersion','A',3)
+
+	
+## To print this out..
+
+In my mako templates, I just have this...
+
+	<head>
+	...
+	${h.gaq_print()|n}
+	...
+	</head>
+
+Notice that you have to escape under Mako.   For more information on mako escape options - http://www.makotemplates.org/docs/filtering.html
