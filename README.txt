@@ -1,12 +1,24 @@
-IMPORTANT
+This Package is EOL and unsupported.
+====================================
 
-i've replaced this package with gaq_hub, which consists of a generalized 'hub' object, and helpers for pyramid and pylons to manage it.
+Please see https://github.com/jvanasco/g_analytics_writer
+
+Outdated below
+==============
+
+IMPORTANT
+=========
+
+i've replaced this package with gaq_hub, which consists of a generalized 'hub'
+object, and helpers for pyramid and pylons to manage it.
 
 this package will no longer be maintained
 
-the 0.0.6 version it is largely backwards compatible with this release, with a few minor changes:
-	1. gaq_print() was renamed to gaq_as_html()
-	2. "from pylons_gaq import *" is now "from gaq_hub.pylons_helpers import *"
+the 0.0.6 version it is largely backwards compatible with this release, with a
+few minor changes:
+
+1. `gaq_print()` was renamed to `gaq_as_html()`
+2. `from pylons_gaq import *` is now `from gaq_hub.pylons_helpers import *`
 
 
 gaq_hub on github
@@ -19,7 +31,7 @@ gaq_hub on pypi
 =================
 =================
 
-pyramid_gaq gives lightweight support for Google Analytics under pyramid
+pylons_gaq gives lightweight support for Google Analytics under Pylons
 
 it creates and manages a _gaq namespace under request.tmpl_context, which can be updated in handlers and templates, and printed out -- in the correct order -- via a helper function
 
@@ -70,7 +82,7 @@ Dropping it into your helpers namespace makes it easier to use in templates like
 
 lib/helpers.py
 
-    from pyramid_gaq import *
+    from pylons_gaq import *
     
 
 ## configure your BaseController to call gaq_setup on __init__
